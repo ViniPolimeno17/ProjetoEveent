@@ -174,3 +174,4 @@ C:\Users\47766024829\Desktop\ProjetoEveent\obj\Debug\net8.0\refint\Eveent+.dll
 C:\Users\47766024829\Desktop\ProjetoEveent\obj\Debug\net8.0\Eveent+.pdb
 C:\Users\47766024829\Desktop\ProjetoEveent\obj\Debug\net8.0\Eveent+.genruntimeconfig.cache
 C:\Users\47766024829\Desktop\ProjetoEveent\obj\Debug\net8.0\ref\Eveent+.dll
+C:\Users\47766024829\Desktop\ProjetoEveent\obj\Debug\net8.0\Eveent+.sourcelink.json

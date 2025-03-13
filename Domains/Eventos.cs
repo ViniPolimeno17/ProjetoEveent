@@ -21,6 +21,7 @@ namespace Eveent_.Domains
         [Required(ErrorMessage = "A data do evento e obrigatorio!")]
         public DateTime? DataEvento { get; set; }
 
+        public Presenca? PresencasEvento { get; set; }
 
         public Guid IdTipoEventos { get; set; }
 
@@ -31,7 +32,5 @@ namespace Eveent_.Domains
 
         [ForeignKey("IdInstituicao")]
         public Instituicoes? Instituicao { get; set; }
-
-        public PresencasEventos? PresencasEventos { get; set; }
     }
 }

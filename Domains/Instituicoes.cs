@@ -24,5 +24,5 @@ namespace Eveent_.Domains
         [Required(ErrorMessage = "O nome fantasia e obrigatorio")]
         public string? NomeFantasia { get; set; }
     }
-}
+} 
  
