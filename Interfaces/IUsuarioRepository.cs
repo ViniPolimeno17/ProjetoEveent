@@ -9,3 +9,4 @@ namespace Eveent_.Interfaces
         Usuarios BuscarPorEmailESenha(string email, string senha);
     }
 }
+ 

@@ -9,8 +9,9 @@ namespace Eveent_.Interfaces
         void Atualizar(Guid id, Presenca presenca);
         Presenca BuscarPorId(Guid id);
         List<Presenca> ListarMinhas(Guid id);
-        void Inscrever(Presenca presenca);
+        void Inscrever(Presenca inscricao);
         void Deletar(Guid id);
 
     }
 }
+ 

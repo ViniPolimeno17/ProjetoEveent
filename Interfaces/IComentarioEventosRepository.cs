@@ -10,3 +10,4 @@ namespace Eveent_.Interfaces
         List<ComentarioEvento> Listar(Guid id);
     }
 }
+ 

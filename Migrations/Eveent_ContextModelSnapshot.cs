@@ -126,7 +126,8 @@ namespace Eveent_.Migrations
 
                     b.HasKey("IdPresenca");
 
-                    b.HasIndex("IdEventos");
+                    b.HasIndex("IdEventos")
+                        .IsUnique();
 
                     b.HasIndex("IdUsuario");
 
@@ -236,8 +237,8 @@ namespace Eveent_.Migrations
             modelBuilder.Entity("Eveent_.Domains.Presenca", b =>
                 {
                     b.HasOne("Eveent_.Domains.Eventos", "eventos")
-                        .WithMany()
-                        .HasForeignKey("IdEventos")
+                        .WithOne("PresencasEvento")
+                        .HasForeignKey("Eveent_.Domains.Presenca", "IdEventos")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -261,6 +262,11 @@ namespace Eveent_.Migrations
                         .IsRequired();
 
                     b.Navigation("TipoUsuario");
+                });
+
+            modelBuilder.Entity("Eveent_.Domains.Eventos", b =>
+                {
+                    b.Navigation("PresencasEvento");
                 });
 #pragma warning restore 612, 618
         }

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Eveent_.Migrations
 {
     /// <inheritdoc />
-    public partial class DbEveent_Api : Migration
+    public partial class DbEveet_Api : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -180,7 +180,8 @@ namespace Eveent_.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Presenca_IdEventos",
                 table: "Presenca",
-                column: "IdEventos");
+                column: "IdEventos",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Presenca_IdUsuario",

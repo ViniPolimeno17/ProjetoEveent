@@ -11,3 +11,4 @@ namespace Eveent_.Interfaces
         List<TiposUsuarios> Listar();
     }
 }
+ 

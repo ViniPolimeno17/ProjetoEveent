@@ -13,3 +13,4 @@ namespace Eveent_.Interfaces
         List<Eventos> ListarPorId(Guid id);
     }
 }
+ 
