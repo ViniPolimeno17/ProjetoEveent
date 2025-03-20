@@ -1,6 +1,7 @@
 ﻿using Eveent_.Context;
 using Eveent_.Domains;
 using Eveent_.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace Eveent_.Repositories
 {
@@ -16,8 +17,9 @@ namespace Eveent_.Repositories
                 if (eventobuscado != null)
                 {
                     eventobuscado.TituloDeEventos = evento.TituloDeEventos;
+                    eventobuscado.Descricao = evento.Descricao;
+                    eventobuscado.DataEvento = evento.DataEvento;
                     eventobuscado.IdTipoEventos = evento.IdTipoEventos;
-                    eventobuscado.IdInstituicao = evento.IdInstituicao;
                 }
                 _context?.SaveChanges();
             }
@@ -62,12 +64,35 @@ namespace Eveent_.Repositories
 
         public void Deletar(Guid id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                Eventos eventoBuscado = _context?.Eventos.Find(id)!;
+                if (eventoBuscado != null)
+                {
+                    _context?.Eventos.Remove(eventoBuscado);
+                }
+                _context?.SaveChanges();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
 
         public List<Eventos> Listar()
         {
-            throw new NotImplementedException();
+            try
+            {
+                List<Eventos> listaEventos = _context?.Eventos.ToList()!;
+
+                return listaEventos;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
 
         public List<Eventos> ListarPorId(Guid id)

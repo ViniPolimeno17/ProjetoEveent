@@ -34,3 +34,4 @@ namespace Eveent_.Domains
         public Instituicoes? Instituicao { get; set; }
     }
 }
+ 
