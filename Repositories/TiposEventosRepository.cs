@@ -1,68 +1,63 @@
-﻿using Eveent_.Context;
-using Eveent_.Domains;
+﻿using Eveent_.Domains;
 using Eveent_.Interfaces;
+using Eveent_.Context;
 using Microsoft.EntityFrameworkCore;
 
 namespace Eveent_.Repositories
 {
-    public class TiposEventosRepository : ITiposEventosRepository
+    public class TipoEventoRepository : ITiposEventosRepository
     {
-        private readonly Eveent_Context? _context;
+        private readonly Eveent_Context _context;
 
-        public TiposEventosRepository(Eveent_Context? context)
+        public TipoEventoRepository(Eveent_Context context)
         {
             _context = context;
         }
 
-        public void Atualizar(Guid id, TiposEventos tiposEventos)
+        public void Atualizar(Guid id, TiposEventos tipoEvento)
         {
             try
             {
-                TiposEventos tipoDeEventoBuscado = _context?.TiposEventos.Find(id)!;
+                TiposEventos tipoEventoBuscado = _context.TiposEventos.Find(id)!;
 
-                if (tipoDeEventoBuscado != null)
+                if (tipoEventoBuscado != null)
                 {
-                    tipoDeEventoBuscado.IdTipoEventos = tiposEventos.IdTipoEventos;
+                    tipoEventoBuscado.TituloTipoEvento = tipoEvento.TituloTipoEvento;
                 }
-                _context?.SaveChanges();
+
+                _context.SaveChanges();
+
             }
             catch (Exception)
             {
-
                 throw;
             }
         }
-    
 
         public TiposEventos BuscarPorId(Guid id)
         {
             try
             {
-                TiposEventos tipoEventosBuscado = _context?.TiposEventos.Find(id)!;
-                if (tipoEventosBuscado != null)
-                {
-                    return tipoEventosBuscado;
-                }
-                return null!;
+                TiposEventos tipoEventoBuscado = _context.TiposEventos.Find(id)!;
+                return tipoEventoBuscado;
+
             }
             catch (Exception)
             {
-
                 throw;
             }
         }
 
-        public void Cadastrar(TiposEventos tiposEventos)
+        public void Cadastrar(TiposEventos novoTipoEvento)
         {
             try
             {
-                _context?.TiposEventos.Add(tiposEventos);
+                _context.TiposEventos.Add(novoTipoEvento);
 
-                _context?.SaveChanges();
+                _context.SaveChanges();
             }
             catch (Exception)
             {
-
                 throw;
             }
         }
@@ -71,12 +66,14 @@ namespace Eveent_.Repositories
         {
             try
             {
-                TiposEventos TipoBuscado = _context?.TiposEventos.Find(id)!;
-                if (TipoBuscado != null)
+                TiposEventos tipoEventoBuscado = _context.TiposEventos.Find(id)!;
+
+                if (tipoEventoBuscado != null)
                 {
-                    _context?.TiposEventos.Remove(TipoBuscado);
+                    _context.TiposEventos.Remove(tipoEventoBuscado);
                 }
-                _context?.SaveChanges();
+
+                _context.SaveChanges();
             }
             catch (Exception)
             {
@@ -89,13 +86,12 @@ namespace Eveent_.Repositories
         {
             try
             {
-                List<TiposEventos> listaTiposEventos = _context?.TiposEventos.ToList()!;
+                List<TiposEventos> listaDeEventos = _context.TiposEventos.ToList();
+                return listaDeEventos;
 
-                return listaTiposEventos;
             }
             catch (Exception)
             {
-
                 throw;
             }
         }

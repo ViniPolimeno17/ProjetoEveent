@@ -1,31 +1,32 @@
 ﻿using Eveent_.Context;
 using Eveent_.Domains;
 using Eveent_.Interfaces;
-using Microsoft.EntityFrameworkCore;
 
 namespace Eveent_.Repositories
 {
-    public class EventosRepository : IEventosRepository
+    public class EventoRepository : IEventosRepository
     {
-        private readonly Eveent_Context? _context;
+        private readonly Eveent_Context _context;
+
+        public EventoRepository(Eveent_Context context)
+        {
+            _context = context;
+        }
+
         public void Atualizar(Guid id, Eventos evento)
         {
             try
             {
-                Eventos eventobuscado = _context?.Eventos.Find(id)!;
+                Eventos eventoBuscado = _context.Eventos.Find(id)!;
 
-                if (eventobuscado != null)
+                if (eventoBuscado != null)
                 {
-                    eventobuscado.TituloDeEventos = evento.TituloDeEventos;
-                    eventobuscado.Descricao = evento.Descricao;
-                    eventobuscado.DataEvento = evento.DataEvento;
-                    eventobuscado.IdTipoEventos = evento.IdTipoEventos;
+                    eventoBuscado.TituloDeEventos = evento.TituloDeEventos;
                 }
-                _context?.SaveChanges();
+                _context.SaveChanges();
             }
             catch (Exception)
             {
-
                 throw;
             }
         }
@@ -35,29 +36,26 @@ namespace Eveent_.Repositories
             try
             {
                 Eventos eventoBuscado = _context.Eventos.Find(id)!;
-                if (eventoBuscado != null) {
-                    return eventoBuscado;
-                }
-                return null!;
+                return eventoBuscado;
+
             }
             catch (Exception)
             {
-
                 throw;
             }
         }
 
-        public void Cadastrar(Eventos evento)
+        public void Cadastrar(Eventos novoEvento)
         {
             try
             {
-                _context?.Eventos.Add(evento);
+                _context.Eventos.Add(novoEvento);
 
-                _context?.SaveChanges();
+                _context.SaveChanges();
             }
+
             catch (Exception)
             {
-
                 throw;
             }
         }
@@ -66,16 +64,17 @@ namespace Eveent_.Repositories
         {
             try
             {
-                Eventos eventoBuscado = _context?.Eventos.Find(id)!;
+                Eventos eventoBuscado = _context.Eventos.Find(id)!;
+
                 if (eventoBuscado != null)
                 {
-                    _context?.Eventos.Remove(eventoBuscado);
+                    _context.Eventos.Remove(eventoBuscado);
                 }
-                _context?.SaveChanges();
+
+                _context.SaveChanges();
             }
             catch (Exception)
             {
-
                 throw;
             }
         }
@@ -84,25 +83,39 @@ namespace Eveent_.Repositories
         {
             try
             {
-                List<Eventos> listaEventos = _context?.Eventos.ToList()!;
-
-                return listaEventos;
+                List<Eventos> listaEvento = _context.Eventos.ToList();
+                return listaEvento;
             }
             catch (Exception)
             {
-
                 throw;
             }
         }
 
         public List<Eventos> ListarPorId(Guid id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                List<Eventos> listaEvento = _context.Eventos.Where(p => p.IdEventos == id).ToList();
+                return listaEvento;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
 
         public List<Eventos> ListarProximosEventos()
         {
-            throw new NotImplementedException();
+            try
+            {
+                List<Eventos> listarEventosProximos = _context.Eventos.Where(e => e.DataEvento > DateTime.Now).OrderBy(e => e.DataEvento).ToList();
+                return listarEventosProximos;
+            }
+            catch (Exception)
+            {
+                throw;
+            }   
         }
     }
 }

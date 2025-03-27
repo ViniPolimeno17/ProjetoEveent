@@ -1,33 +1,32 @@
-﻿using Eveent_.Context;
-using Eveent_.Domains;
+﻿using Eveent_.Domains;
 using Eveent_.Interfaces;
-using Microsoft.EntityFrameworkCore;
+using Eveent_.Context;
 
 namespace Eveent_.Repositories
 {
-    public class PresencaRepository : IPresencaRepository
+    public class PresencasRepository : IPresencaRepository
     {
-        private readonly Eveent_Context? _context;
+        private readonly Eveent_Context _context;
 
-        public PresencaRepository(Eveent_Context? context)
+        public PresencasRepository(Eveent_Context context)
         {
             _context = context;
         }
+
         public void Atualizar(Guid id, Presenca presenca)
         {
             try
             {
-                Presenca presencaBuscado = _context?.Presenca.Find(id)!;
+                Presenca presencaBuscado = _context.Presenca.Find(id)!;
 
                 if (presencaBuscado != null)
                 {
-                    presencaBuscado.IdPresenca = presencaBuscado.IdPresenca;
+                    presencaBuscado.Situacao = presenca.Situacao;
                 }
-                _context?.SaveChanges();
+                _context.SaveChanges();
             }
             catch (Exception)
             {
-
                 throw;
             }
         }
@@ -36,16 +35,11 @@ namespace Eveent_.Repositories
         {
             try
             {
-                Presenca presencaBusacado = _context?.Presenca.Find(id)!;
-                if (presencaBusacado != null)
-                {
-                    return presencaBusacado;
-                }
-                return null!;
+                Presenca presencaBuscado = _context.Presenca.Find(id)!;
+                return presencaBuscado;
             }
             catch (Exception)
             {
-
                 throw;
             }
         }
@@ -54,32 +48,29 @@ namespace Eveent_.Repositories
         {
             try
             {
-                Presenca presencaBuscado = _context?.Presenca.Find(id)!;
-                if(presencaBuscado != null)
+                Presenca presencaBuscado = _context.Presenca.Find(id)!;
+
+                if (presencaBuscado != null)
                 {
-                    _context?.Presenca.Remove(presencaBuscado);
+                    _context.Presenca.Remove(presencaBuscado);
                 }
-                _context?.SaveChanges();
+                _context.SaveChanges();
             }
             catch (Exception)
             {
-
                 throw;
             }
         }
 
-        public void Inscrever(Presenca inscricao)
+        public void Inscrever(Presenca inscreverPresenca)
         {
             try
             {
-                _context?.Presenca.Add(inscricao);
-            
-                _context?.SaveChanges();
-
+                _context.Presenca.Add(inscreverPresenca);
+                _context.SaveChanges();
             }
             catch (Exception)
             {
-
                 throw;
             }
         }
@@ -88,20 +79,26 @@ namespace Eveent_.Repositories
         {
             try
             {
-                List<Presenca> listaPresencas = _context?.Presenca.ToList()!;
-
-                return listaPresencas;
+                List<Presenca> listaPresenca = _context.Presenca.ToList();
+                return listaPresenca;
             }
             catch (Exception)
             {
-
                 throw;
             }
         }
 
         public List<Presenca> ListarMinhas(Guid id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                List<Presenca> listaPresenca = _context.Presenca.Where(p => p.IdUsuario == id).ToList();
+                return listaPresenca;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
     }
 }

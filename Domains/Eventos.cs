@@ -26,7 +26,7 @@ namespace Eveent_.Domains
         public Guid IdTipoEventos { get; set; }
 
         [ForeignKey("IdTipoEventos")]
-        public TiposEventos? TiposEvento { get; set; }
+        public TiposEventos? tiposEvento { get; set; }
 
         public Guid IdInstituicao { get; set; }
 
